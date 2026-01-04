@@ -99,46 +99,63 @@ export default function Dashboard() {
     };
 
     return (
-        <Box sx={{ flexGrow: 1, bgcolor: '#F3F4F6', minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+        <Box sx={{ 
+            flexGrow: 1, 
+            bgcolor: '#F3F4F6', 
+            minHeight: '100vh', 
+            width: '100vw',        // Force full viewport width
+            maxWidth: '100%',      
+            overflowX: 'hidden',   // Prevent horizontal scroll
+            display: 'flex', 
+            flexDirection: 'column' 
+        }}>
             
             {/* Header */}
             <AppBar position="sticky" elevation={0} sx={{ bgcolor: 'white', borderBottom: '1px solid #e5e7eb', color: '#1f2937' }}>
-                <Toolbar>
-                    <Box sx={{ display: 'flex', alignItems: 'center', flexGrow: 1 }}>
-                        <Box sx={{ bgcolor: '#4f46e5', width: 32, height: 32, borderRadius: 1, mr: 2, display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontWeight: 'bold' }}>
-                            $
+                {/* We constrain the toolbar content to match the dashboard width */}
+                <Box sx={{ width: '100%', maxWidth: '1600px', mx: 'auto' }}>
+                    <Toolbar>
+                        <Box sx={{ display: 'flex', alignItems: 'center', flexGrow: 1 }}>
+                            <Box sx={{ bgcolor: '#4f46e5', width: 32, height: 32, borderRadius: 1, mr: 2, display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontWeight: 'bold' }}>
+                                $
+                            </Box>
+                            <Typography variant="h6" component="div" sx={{ fontWeight: '700', letterSpacing: '-0.5px' }}>
+                                STARTUP<span style={{ color: '#4f46e5' }}>FINANCE</span>
+                            </Typography>
                         </Box>
-                        <Typography variant="h6" component="div" sx={{ fontWeight: '700', letterSpacing: '-0.5px' }}>
-                            STARTUP<span style={{ color: '#4f46e5' }}>FINANCE</span>
-                        </Typography>
-                    </Box>
-                    <Tooltip title="Refresh Data">
-                        <IconButton onClick={fetchDashboard} sx={{ mr: 1, bgcolor: '#f3f4f6' }}>
-                            <RefreshIcon fontSize="small" />
-                        </IconButton>
-                    </Tooltip>
-                    <Tooltip title="Logout">
-                        <IconButton color="error" onClick={handleLogout} sx={{ bgcolor: '#fee2e2' }}>
-                            <LogoutIcon fontSize="small" />
-                        </IconButton>
-                    </Tooltip>
-                </Toolbar>
+                        <Tooltip title="Refresh Data">
+                            <IconButton onClick={fetchDashboard} sx={{ mr: 1, bgcolor: '#f3f4f6' }}>
+                                <RefreshIcon fontSize="small" />
+                            </IconButton>
+                        </Tooltip>
+                        <Tooltip title="Logout">
+                            <IconButton color="error" onClick={handleLogout} sx={{ bgcolor: '#fee2e2' }}>
+                                <LogoutIcon fontSize="small" />
+                            </IconButton>
+                        </Tooltip>
+                    </Toolbar>
+                </Box>
             </AppBar>
 
-            {/* FLUID CONTAINER - FULL WIDTH */}
-            <Box sx={{ p: { xs: 2, md: 4 }, flexGrow: 1, width: '100%', boxSizing: 'border-box' }}>
+            {/* MAIN CONTENT WRAPPER */}
+            <Box sx={{ 
+                p: { xs: 2, md: 4 }, 
+                width: '100%', 
+                maxWidth: '1600px', // COMPACT FIX: Limits width on ultra-wide screens
+                mx: 'auto',         // Centers the content
+                boxSizing: 'border-box' 
+            }}>
                 
-                <Box mb={4} maxWidth="1600px" mx="auto">
+                <Box mb={4}>
                     <Typography variant="h4" fontWeight="800" color="#111827">Dashboard</Typography>
                     <Typography variant="body1" color="textSecondary">Welcome back, {userName}.</Typography>
                 </Box>
 
-                {/* Using width 100% on Grid Container to force expansion */}
-                <Grid container spacing={3} sx={{ width: '100%', m: 0 }}>
+                <Grid container spacing={3}>
                     
-                    {/* LEFT SIDEBAR: Fixed width logic for Ultra Wide */}
-                    {/* xs=12 (Mobile), lg=3 (Desktop), xl=2 (Ultra Wide) -> Keeps sidebar from getting too fat */}
-                    <Grid item xs={12} lg={3} xl={2} sx={{ pl: '0 !important' }}> 
+                    {/* LEFT COLUMN */}
+                    {/* MUI v7 Syntax: size={{ ... }} instead of xs={...} */}
+                    <Grid size={{ xs: 12, lg: 3, xl: 3 }}> 
                         <Box display="flex" flexDirection="column" gap={3}>
                             
                             {/* Balance Card */}
@@ -210,8 +227,8 @@ export default function Dashboard() {
                         </Box>
                     </Grid>
 
-                    {/* RIGHT CONTENT: Takes remaining space (lg=9, xl=10) */}
-                    <Grid item xs={12} lg={9} xl={10}>
+                    {/* RIGHT CONTENT */}
+                    <Grid size={{ xs: 12, lg: 9, xl: 9 }}>
                         <Paper elevation={0} sx={{ width: '100%', borderRadius: 4, border: '1px solid #e5e7eb', overflow: 'hidden', height: '100%', minHeight: '500px' }}>
                             <Box sx={{ borderBottom: '1px solid #e5e7eb', bgcolor: 'white', px: 3, pt: 2 }}>
                                 <Tabs value={tabValue} onChange={(e, val) => setTabValue(val)} indicatorColor="primary" textColor="primary">
@@ -286,7 +303,7 @@ export default function Dashboard() {
                     </Button>
                 </Tooltip>
 
-                {/* MODALS (Unchanged logic, just styling) */}
+                {/* MODALS */}
                 <Dialog open={openExpense} onClose={closeModals} fullWidth maxWidth="xs" PaperProps={{ sx: { borderRadius: 3 } }}>
                     <DialogTitle sx={{ fontWeight: 'bold' }}>New Expense</DialogTitle>
                     <DialogContent>

@@ -40,18 +40,24 @@ export default function Login() {
     };
 
     return (
-        <Grid container component="main" sx={{ height: '100vh', width: '100vw', overflow: 'hidden' }}>
+        <Grid 
+            container 
+            component="main" 
+            sx={{ 
+                height: '100vh', 
+                width: '100vw',        // Force viewport width
+                maxWidth: '100%',      // Double safety
+                overflow: 'hidden',    // Kill scrollbars
+                m: 0, 
+                p: 0 
+            }}
+        >
             {/* Left Side - Brand Visual */}
             <Grid
-                item
-                xs={false}
-                sm={4}
-                md={7}
+                size={{ xs: false, sm: 4, md: 7, lg: 8 }} // MUI v7 Syntax
                 sx={{
-                    backgroundImage: 'linear-gradient(135deg, #1e1b4b 0%, #312e81 100%)', // Deep Indigo
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center',
-                    display: 'flex',
+                    display: { xs: 'none', sm: 'flex' },
+                    backgroundImage: 'linear-gradient(135deg, #1e1b4b 0%, #312e81 100%)',
                     flexDirection: 'column',
                     justifyContent: 'center',
                     alignItems: 'center',
@@ -59,21 +65,39 @@ export default function Login() {
                     p: 4
                 }}
             >
-                {!isMobile && (
-                    <Box textAlign="center" maxWidth="600px">
-                        <Typography variant="h2" fontWeight="800" letterSpacing={-1} mb={2}>
-                            Startup Finance
-                        </Typography>
-                        <Typography variant="h5" fontWeight="300" sx={{ opacity: 0.8 }}>
-                            The operating system for your team's expenses.
-                        </Typography>
-                    </Box>
-                )}
+                <Box textAlign="center" maxWidth="600px">
+                    <Typography variant="h2" fontWeight="800" letterSpacing={-1} mb={2}>
+                        Startup Finance
+                    </Typography>
+                    <Typography variant="h5" fontWeight="300" sx={{ opacity: 0.8 }}>
+                        The operating system for your team's expenses.
+                    </Typography>
+                </Box>
             </Grid>
 
             {/* Right Side - Login Form */}
-            <Grid item xs={12} sm={8} md={5} component={Paper} elevation={0} square sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <Box sx={{ my: 8, mx: 4, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', maxWidth: '450px' }}>
+            <Grid 
+                size={{ xs: 12, sm: 8, md: 5, lg: 4 }} // MUI v7 Syntax
+                component={Paper} 
+                elevation={0} 
+                square 
+                sx={{ 
+                    display: 'flex', 
+                    alignItems: 'center', 
+                    justifyContent: 'center',
+                    bgcolor: 'white',
+                    height: '100%' // Ensure it fills height
+                }}
+            >
+                <Box sx={{ 
+                    my: 8, 
+                    mx: 6, 
+                    display: 'flex', 
+                    flexDirection: 'column', 
+                    alignItems: 'center', 
+                    width: '100%', 
+                    maxWidth: '450px' // Keep form compact
+                }}>
                     
                     {isMobile && (
                         <Typography variant="h5" fontWeight="bold" color="primary" gutterBottom>

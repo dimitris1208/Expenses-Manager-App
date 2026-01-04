@@ -1,9 +1,11 @@
 #root {
-  max-width: 100%;
-  margin: 0 auto;
-  padding: 2rem;
+  width: 100%;
+  max-width: 100%; /* Ensure no max-width constraints */
+  margin: 0;
+  padding: 0;
+  text-align: left; /* Reset text align */
 }
-
+/* Keep your logo styles if you want them, but the #root rule above is key */
 .logo {
   height: 6em;
   padding: 1.5em;
