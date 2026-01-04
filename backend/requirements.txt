@@ -1,7 +1,5 @@
-fastapi
-uvicorn
+Flask
 sqlalchemy
 mysql-connector-python
 passlib[bcrypt]
-python-jose[cryptography]
-python-multipart
+pyjwt

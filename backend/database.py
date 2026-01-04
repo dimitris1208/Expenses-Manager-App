@@ -11,9 +11,6 @@ DB_PASS = os.getenv("PA_DB_PASS")
 DB_HOST = os.getenv("PA_DB_HOST")
 DB_NAME = os.getenv("PA_DB_NAME")
 
-
-# Let's try the safest "Special Character" fix:
-# We URL-encode the password to ensure symbols don't break the connection.
 import urllib.parse
 safe_password = urllib.parse.quote_plus(DB_PASS)
 
